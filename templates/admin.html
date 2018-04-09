@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block titre %}Admin{% endblock %}
+
+{% block body %}
+    <h1 class="title">Liste des sites</h1>
+    <table class="table is-narrow is-fullwidth">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Url</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for site in sites %}
+            <tr>
+                <td style="padding-right: 50px">{{ site[0] }}</td>
+                <td style="padding-right: 350px">{{ site[1] }}</td>
+                <td style="padding-right: 0"><a class="button is-link"
+                                                href="{{ url_for('manager_site', id_site=site[0]) }}">Modifier</a>
+                    <a class="button is-danger" href="{{ url_for('delete_site', id_site=site[0]) }}">Supprimer</a></td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('new_site') }}" class="button is-primary">Ajouter un site</a>
+
+
+{% endblock %}

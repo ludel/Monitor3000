@@ -1,11 +1,10 @@
 {% extends 'layout.html' %}
 
-{% block titre %}Some page{% endblock %}
+{% block titre %}Index{% endblock %}
 
 {% block body %}
     {% for site in sites %}
         <h1 class="title"><a href="site/{{ site[0] }}">{{ site[1] }}</a></h1>
         <h1 class="subtitle">{{ site[2] }}</h1>
-
     {% endfor %}
 {% endblock %}

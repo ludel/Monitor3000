@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block titre %}New site{% endblock %}
+
+{% block body %}
+    <h1 class="title" >New site</h1>
+        <form method="post" action="">
+            <label>Url du site : <input class="input" name="url"></label><br><br>
+        <button class="button is-link" type="submit">Ajouter le site</button>
+        </form>
+{% endblock %}

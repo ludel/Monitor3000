@@ -1,7 +1,11 @@
 {% extends 'layout.html' %}
 
-{% block titre %}Some page{% endblock %}
+{% block titre %}Les requetes{% endblock %}
 
 {% block body %}
-    {{ one_site }}
+    <h1 class="title">Site : {{ all_request[0][1] }}</h1>
+    {% for req in all_request %}
+        <h1 class="title">- {{ req[2] }}</h1>
+        <h1 class="subtitle">{{ req[3] }}</h1>
+    {% endfor %}
 {% endblock %}
