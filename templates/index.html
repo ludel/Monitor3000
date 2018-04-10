@@ -10,7 +10,7 @@
                     <div class="card-content">
                         <p>
                         <h1 class="title is-8"> {{ site[1] }}</h1>
-                        <a class="button is-danger is-fullwidth is-large"
+                        <a class="button is-fullwidth is-large is-{% if site[2] == 200 %}success{% else %}danger{% endif %}"
                            href="{{ url_for("one_site", id_site=site[0]) }}">{{ site[2] }}</a>
                         </p>
                     </div>
