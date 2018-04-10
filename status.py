@@ -17,9 +17,8 @@ def update_status(dict_response):
 
 
 if __name__ == '__main__':
-
     while True:
         print("===============================")
         response = get_response()
         update_status(response)
-        sleep(120)
+        sleep(10)
