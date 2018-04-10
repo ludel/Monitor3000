@@ -50,9 +50,7 @@ def logout():
 
 @app.route('/admin')
 def admin():
-    if not session.get('logged_in'):
-        flash('Login first')
-        return redirect(url_for('login'))
+    check_login()
 
     sites = exec_sql("SELECT * FROM site").fetchall()
     return render_template('admin.html', sites=sites)
@@ -60,9 +58,7 @@ def admin():
 
 @app.route('/admin/newSite', methods=['GET', 'POST'])
 def new_site():
-    if not session.get('logged_in'):
-        flash('Login first')
-        return redirect(url_for('login'))
+    check_login()
 
     if request.form:
         url = request.form['url']
@@ -74,9 +70,7 @@ def new_site():
 
 @app.route('/admin/site/<int:id_site>/change', methods=['GET', 'POST'])
 def manager_site(id_site):
-    if not session.get('logged_in'):
-        flash('Login first')
-        return redirect(url_for('login'))
+    check_login()
 
     site = exec_sql("SELECT url FROM site WHERE id == {}".format(id_site)).fetchone()
 
@@ -90,9 +84,7 @@ def manager_site(id_site):
 
 @app.route('/admin/site/<int:id_site>/delete')
 def delete_site(id_site):
-    if not session.get('logged_in'):
-        flash('Login first')
-        return redirect(url_for('login'))
+    check_login()
 
     exec_sql("DELETE FROM 'site' WHERE id = {}".format(id_site), True)
 
@@ -104,6 +96,12 @@ def exec_sql(query, commit=False):
     if commit:
         req.execute("COMMIT ")
     return req
+
+
+def check_login():
+    if not session.get('logged_in'):
+        flash('Login first')
+        return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
