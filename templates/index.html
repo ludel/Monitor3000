@@ -3,8 +3,19 @@
 {% block titre %}Index{% endblock %}
 
 {% block body %}
-    {% for site in sites %}
-        <h1 class="title"><a href="site/{{ site[0] }}">{{ site[1] }}</a></h1>
-        <h1 class="subtitle">{{ site[2] }}</h1>
-    {% endfor %}
+    <div class="columns">
+        {% for site in sites %}
+            <div class="column">
+                <div class="card">
+                    <div class="card-content">
+                        <p>
+                        <h1 class="title is-8"> {{ site[1] }}</h1>
+                        <a class="button is-danger is-fullwidth is-large"
+                           href="{{ url_for("one_site", id_site=site[0]) }}">{{ site[2] }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
