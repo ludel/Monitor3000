@@ -8,7 +8,7 @@ app.secret_key = SECRET_KEY
 
 @app.route('/')
 def index():
-    query = "SELECT s.url, r.number, r.date FROM site s" \
+    query = "SELECT s.id, s.url, r.number FROM site s" \
             " JOIN requests r ON s.id = r.siteId" \
             " GROUP BY r.siteId"
     sites = exec_sql(query).fetchall()
@@ -17,7 +17,7 @@ def index():
 
 @app.route('/site/<int:id_site>')
 def one_site(id_site):
-    query = "SELECT s.id, s.url, r.number, r.date FROM site s" \
+    query = "SELECT s.url, r.number, r.date FROM site s" \
             " JOIN requests r ON s.id = {}".format(id_site)
     all_request = exec_sql(query).fetchall()
     return render_template('one_site.html', all_request=all_request)

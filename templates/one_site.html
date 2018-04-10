@@ -3,15 +3,15 @@
 {% block titre %}Les requetes{% endblock %}
 
 {% block body %}
-    <h1 class="title">Site : {{ all_request[0][1] }}</h1>
+    <h1 class="title">Site : {{ all_request[0][0] }}</h1>
     <ul class="is-danger">
         {% for req in all_request %}
             <li>
-                <p class="button is-rounded is-{% if req[2] == 200 %}success{% else %}danger{% endif %}">
-                    # {{ req[2] }}
+                <p class="button is-rounded is-{% if req[1] == 200 %}success{% else %}danger{% endif %}">
+                    # {{ req[1] }}
                 </p>
                 <p class="button is-rounded is-info">
-                    {{ req[3] }}
+                    {{ req[2] }}
                 </p>
             </li><br>
         {% endfor %}
