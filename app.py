@@ -3,7 +3,6 @@ from secret_config import SECRET_KEY
 import sqlite3
 
 app = Flask(__name__)
-con = sqlite3.connect('main.db')
 app.secret_key = SECRET_KEY
 
 
@@ -12,7 +11,7 @@ def index():
     query = "SELECT s.url, r.number, r.date FROM site s" \
             " JOIN requests r ON s.id = r.siteId" \
             " GROUP BY r.siteId"
-    sites = con.execute(query).fetchall()
+    sites = exec_sql(query).fetchall()
     return render_template('index.html', sites=sites)
 
 
@@ -20,7 +19,7 @@ def index():
 def one_site(id_site):
     query = "SELECT s.id, s.url, r.number, r.date FROM site s" \
             " JOIN requests r ON s.id = {}".format(id_site)
-    all_request = con.execute(query).fetchall()
+    all_request = exec_sql(query).fetchall()
     return render_template('one_site.html', all_request=all_request)
 
 
@@ -29,7 +28,7 @@ def login():
     if request.form:
         username = request.form['username']
         password = request.form['password']
-        true_password = con.execute("SELECT password FROM user WHERE pseudo like '{}'".format(username)).fetchone()[0]
+        true_password = exec_sql("SELECT password FROM user WHERE pseudo like '{}'".format(username)).fetchone()[0]
 
         if password == true_password:
             session['logged_in'] = True
@@ -55,7 +54,7 @@ def admin():
         flash('Login first')
         return redirect(url_for('login'))
 
-    sites = con.execute("SELECT * FROM site").fetchall()
+    sites = exec_sql("SELECT * FROM site").fetchall()
     return render_template('admin.html', sites=sites)
 
 
@@ -67,7 +66,7 @@ def new_site():
 
     if request.form:
         url = request.form['url']
-        con.execute("INSERT INTO site (url) VALUES ('{}')".format(url))
+        exec_sql("INSERT INTO site (url) VALUES ('{}')".format(url), True)
         return redirect(url_for('admin'))
 
     return render_template('new_site.html')
@@ -79,11 +78,11 @@ def manager_site(id_site):
         flash('Login first')
         return redirect(url_for('login'))
 
-    site = con.execute("SELECT url FROM site WHERE id == {}".format(id_site)).fetchone()
+    site = exec_sql("SELECT url FROM site WHERE id == {}".format(id_site)).fetchone()
 
     if request.form:
         url = request.form['url']
-        con.execute("UPDATE site SET url = '{}' WHERE id = '{}'".format(url, id_site))
+        exec_sql("UPDATE site SET url = '{}' WHERE id = '{}'".format(url, id_site), True)
         return redirect(url_for('admin'))
 
     return render_template('manage_site.html', site=site)
@@ -95,9 +94,16 @@ def delete_site(id_site):
         flash('Login first')
         return redirect(url_for('login'))
 
-    con.execute("DELETE FROM 'site' WHERE id = {}".format(id_site))
+    exec_sql("DELETE FROM 'site' WHERE id = {}".format(id_site), True)
 
     return redirect(url_for("admin"))
+
+
+def exec_sql(query, commit=False):
+    req = sqlite3.connect('main.db').execute(query)
+    if commit:
+        req.execute("COMMIT ")
+    return req
 
 
 if __name__ == '__main__':
