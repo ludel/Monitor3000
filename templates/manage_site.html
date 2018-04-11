@@ -5,8 +5,8 @@
 {% block body %}
     <h1 class="title" >Modification : {{ site[0] }}</h1>
         <form method="post">
-            <label>Url du site : <input value="{{ site[0] }}" class="input" name="url"></label><br><br>
-        <a class="button is-dark" href="{{ url_for('admin') }}">Annuler</a>
-        <button class="button is-link">Enregister les modifications</button>
+            <label>Site url : <input value="{{ site[0] }}" class="input" name="url"></label><br><br>
+        <a class="button is-dark" href="{{ url_for('admin') }}">Cancel</a>
+        <button class="button is-link">Save modification</button>
         </form>
 {% endblock %}

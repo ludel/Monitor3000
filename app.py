@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from secret_config import SECRET_KEY
 import sqlite3
+from passlib.hash import argon2
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -29,14 +30,19 @@ def login():
     if request.form:
         username = request.form['username']
         password = request.form['password']
-        true_password = exec_sql("SELECT password FROM user WHERE pseudo like '{}'".format(username)).fetchone()[0]
 
-        if password == true_password:
+        try:
+            true_password = exec_sql("SELECT password FROM user WHERE pseudo like '{}'".format(username)).fetchone()[0]
+        except TypeError:
+            flash('Error: Bad username or password')
+            return redirect(url_for('login'))
+
+        if argon2.verify(password, true_password):
             session['logged_in'] = True
             flash('You were successfully logged in')
             return redirect(url_for('admin'))
 
-    if session['logged_in']:
+    if session.get('logged_in'):
         return redirect(url_for('admin'))
 
     return render_template('login.html')
@@ -101,7 +107,7 @@ def exec_sql(query, commit=False):
 
 def check_login():
     if not session.get('logged_in'):
-        flash('Login first')
+        flash('Error: Login first')
         return redirect(url_for('login'))
 
 
