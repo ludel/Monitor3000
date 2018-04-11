@@ -67,6 +67,7 @@ def new_site():
     if request.form:
         url = request.form['url']
         sql_obj.new_site(url)
+        flash('New site is create just wait 2 min')
         return redirect(url_for('admin'))
 
     return render_template('admin/new_site.html')
