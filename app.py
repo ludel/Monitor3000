@@ -87,7 +87,7 @@ def manager_site(id_site):
         exec_sql("UPDATE site SET url = '{}' WHERE id = '{}'".format(url, id_site), True)
         return redirect(url_for('admin'))
 
-    return render_template('manage_site.html', site=site)
+    return render_template('edit_site.html', site=site)
 
 
 @app.route('/admin/site/<int:id_site>/delete')
