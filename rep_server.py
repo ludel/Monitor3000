@@ -9,6 +9,7 @@ def get_response(sites):
         except exceptions.MissingSchema:
             dict_response[site[0]] = 404
         except exceptions.SSLError:
-            dict_response[site[0]] = 400
-
+            dict_response[site[0]] = 495
+        except exceptions.ConnectionError:
+            dict_response[site[0]] = 504
     return dict_response
