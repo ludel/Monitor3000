@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from secret_config import SECRET_KEY
 import sqlite3
 from passlib.hash import argon2
 
 app = Flask(__name__)
-app.secret_key = SECRET_KEY
+app.config.from_object("secret_config")
+app.secret_key = app.config['SECRET_KEY']
 
 
 @app.route('/')
@@ -100,7 +100,7 @@ def delete_site(id_site):
 
 
 def exec_sql(query, commit=False):
-    req = sqlite3.connect('main.db').execute(query)
+    req = sqlite3.connect(app.config['BDD']).execute(query)
     if commit:
         req.execute("COMMIT ")
     return req
