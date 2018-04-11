@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import sqlite3
 from passlib.hash import argon2
-from sql_obj import SQLRequest
+from SQLRequest import SQLRequest
 
 app = Flask(__name__)
 app.config.from_object("secret_config")
