@@ -11,15 +11,15 @@
         {% if loop.index0%3 == 0 or loop.index0 == 0 %}
             <div class="columns">
         {% endif %}
-                <div class="column is-4">
-                    <div class="card">
-                        <div class="card-content">
-                            <h1 class="title is-8"> {{ site[1] }}</h1>
-                            <a class="button is-fullwidth is-large is-{% if site[2] == 200 %}success{% else %}danger{% endif %}"
-                               href="{{ url_for("one_site", id_site=site[0]) }}">{{ site[2] }}</a>
-                        </div>
-                    </div>
+        <div class="column is-4">
+            <div class="card">
+                <div class="card-content">
+                    <a href="{{ site[1] }}" class="title is-5 is-dark"> {{ site[1] }}</a><br><br>
+                    <a class="button is-fullwidth is-large is-{% if site[2] == 200 %}success{% else %}danger{% endif %}"
+                       href="{{ url_for("one_site", id_site=site[0]) }}">{{ site[2] }}</a>
                 </div>
+            </div>
+        </div>
 
 
     {% endfor %}
