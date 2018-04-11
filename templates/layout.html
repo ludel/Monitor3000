@@ -17,9 +17,23 @@
                 MONOTOR 3000
             </a>
         </div>
-
         <div class="navbar-end">
-            <a class="navbar-item" href="{{ url_for('login') }}">Admin</a>
+            {% if session.get('is_login') %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <label class="navbar-link">Administration</label>
+                    <div class="navbar-dropdown">
+                        <a href="{{ url_for('admin') }}" class="navbar-item">
+                            Main panel
+                        </a>
+                        <hr class="navbar-divider">
+                        <a href="{{ url_for('logout') }}" class="navbar-item">
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a class="navbar-item" href="{{ url_for('login') }}">Connexion</a>
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -28,15 +42,15 @@
     {% if messages %}
         <ul>
             {% for message in messages %}
-                {% if "Error" in message  %}
-                <div class="notification is-danger">
+                {% if "Error" in message %}
+                    <div class="notification is-danger">
                 {% else %}
-                <div class="notification is-info">
+                    <div class="notification is-info">
                 {% endif %}
-                    <div class="container">
-                        {{ message }}
-                    </div>
-                </div>
+            <div class="container">
+                {{ message }}
+            </div>
+            </div>
             {% endfor %}
         </ul>
     {% endif %}

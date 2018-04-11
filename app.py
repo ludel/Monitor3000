@@ -35,13 +35,13 @@ def login():
             flash('Error: Wrong username')
         else:
             if argon2.verify(password, true_password):
-                session['logged_in'] = True
+                session['is_login'] = True
                 flash('You were successfully logged in')
                 return redirect(url_for('admin'))
             else:
                 flash('Error: Wrong password')
 
-    if session.get('logged_in'):
+    if session.get('is_login'):
         return redirect(url_for('admin'))
 
     return render_template('login.html')
@@ -49,7 +49,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session['logged_in'] = False
+    session['is_login'] = False
     flash('You were successfully log out')
     return redirect(url_for('index'))
 
@@ -94,7 +94,7 @@ def delete_site(id_site):
 
 
 def check_login():
-    if not session.get('logged_in'):
+    if not session.get('is_login'):
         flash('Error: Login first')
         return redirect(url_for('login'))
 
