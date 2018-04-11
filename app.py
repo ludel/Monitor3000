@@ -34,13 +34,14 @@ def login():
         try:
             true_password = exec_sql("SELECT password FROM user WHERE pseudo like '{}'".format(username)).fetchone()[0]
         except TypeError:
-            flash('Error: Bad username or password')
-            return redirect(url_for('login'))
-
-        if argon2.verify(password, true_password):
-            session['logged_in'] = True
-            flash('You were successfully logged in')
-            return redirect(url_for('admin'))
+            flash('Error: Wrong username')
+        else:
+            if argon2.verify(password, true_password):
+                session['logged_in'] = True
+                flash('You were successfully logged in')
+                return redirect(url_for('admin'))
+            else:
+                flash('Error: Wrong password')
 
     if session.get('logged_in'):
         return redirect(url_for('admin'))
