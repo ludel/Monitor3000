@@ -22,7 +22,7 @@ def one_site(id_site):
             " JOIN requests r ON s.id = r.siteId" \
             " WHERE r.siteId = {}".format(id_site)
     all_request = exec_sql(query).fetchall()
-    return render_template('one_site.html', all_request=all_request)
+    return render_template('admin/one_site.html', all_request=all_request)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -61,7 +61,7 @@ def admin():
     check_login()
 
     sites = exec_sql("SELECT * FROM site").fetchall()
-    return render_template('admin.html', sites=sites)
+    return render_template('admin/admin.html', sites=sites)
 
 
 @app.route('/admin/newSite', methods=['GET', 'POST'])
@@ -73,7 +73,7 @@ def new_site():
         exec_sql("INSERT INTO site (url) VALUES ('{}')".format(url), True)
         return redirect(url_for('admin'))
 
-    return render_template('new_site.html')
+    return render_template('admin/new_site.html')
 
 
 @app.route('/admin/site/<int:id_site>/change', methods=['GET', 'POST'])
@@ -87,7 +87,7 @@ def manager_site(id_site):
         exec_sql("UPDATE site SET url = '{}' WHERE id = '{}'".format(url, id_site), True)
         return redirect(url_for('admin'))
 
-    return render_template('edit_site.html', site=site)
+    return render_template('admin/edit_site.html', site=site)
 
 
 @app.route('/admin/site/<int:id_site>/delete')
