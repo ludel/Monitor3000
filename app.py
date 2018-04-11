@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-import sqlite3
 from passlib.hash import argon2
 from SQLRequest import SQLRequest
+from rep_server import get_response
+from time import sleep
+from multiprocessing import Process
 
 app = Flask(__name__)
 app.config.from_object("secret_config")
@@ -95,6 +97,18 @@ def check_login():
         flash('Error: Login first')
         return redirect(url_for('login'))
 
+
+def status():
+    while True:
+        print("===============================")
+        dict_response = get_response(sql_obj.get_all_data_site())
+        for key, value in dict_response.items():
+            sql_obj.new_response(value, key)
+        sleep(120)
+
+
+p = Process(target=status)
+p.start()
 
 if __name__ == '__main__':
     app.run()

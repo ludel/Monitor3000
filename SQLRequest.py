@@ -26,6 +26,10 @@ class SQLRequest:
         query = "INSERT INTO site (url) VALUES ('{}')".format(url)
         self.exe_sql(query, True)
 
+    def new_response(self, number, site_id):
+        query = "INSERT INTO requests (number, siteId) VALUES ({}, {})".format(number, site_id)
+        self.exe_sql(query, True)
+
     def get_all_data_site(self):
         sites = self.exe_sql("SELECT * FROM site")
         return sites.fetchall()
