@@ -6,6 +6,7 @@ class SQLRequest:
     def __init__(self, app):
         self.app = app
         app.config.from_object("secret_config")
+        self.exe_sql("PRAGMA foreign_key=ON")
 
     def exe_sql(self, query, commit=False):
         req = sqlite3.connect(self.app.config['BDD']).execute(query)
@@ -19,8 +20,10 @@ class SQLRequest:
         self.exe_sql(query, True)
 
     def delete_site(self, id_site):
-        query = "DELETE FROM 'site' WHERE id = {}".format(id_site)
-        self.exe_sql(query, True)
+        list_query = ["DELETE FROM site WHERE id = {}".format(id_site),
+                      "DELETE FROM requests WHERE siteId = {}".format(id_site)]
+        for query in list_query:
+            self.exe_sql(query, True)
 
     def new_site(self, url):
         query = "INSERT INTO site (url) VALUES ('{}')".format(url)
