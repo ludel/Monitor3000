@@ -24,16 +24,25 @@
     </div>
 </nav>
 
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                {% if "Error" in message  %}
+                <div class="notification is-danger">
+                {% else %}
+                <div class="notification is-info">
+                {% endif %}
+                    <div class="container">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
 <div class="container" id="corps">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
     {% block body %}{% endblock %}
 </div>
 </body>
