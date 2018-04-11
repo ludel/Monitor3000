@@ -1,2 +1,2 @@
 SECRET_KEY = "ludelkey"
-BDD = "main"
+BDD = "main.db"
