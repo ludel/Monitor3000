@@ -90,13 +90,6 @@ def delete_site(id_site):
     return redirect(url_for("admin"))
 
 
-def exec_sql(query, commit=False):
-    req = sqlite3.connect('main.db').execute(query)
-    if commit:
-        req.execute("COMMIT ")
-    return req
-
-
 def check_login():
     if not session.get('logged_in'):
         flash('Error: Login first')
