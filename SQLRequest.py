@@ -6,7 +6,6 @@ class SQLRequest:
     def __init__(self, app):
         self.app = app
         app.config.from_object("secret_config")
-        self.exe_sql("PRAGMA foreign_key=ON")
 
     def exe_sql(self, query, commit=False):
         req = sqlite3.connect(self.app.config['BDD']).execute(query)
