@@ -22,7 +22,7 @@
                         <h2 class="subtitle is-4 has-text-white">HTTP : {{ site[2] }}</h2><br>
 
                         <span class="icon is-large">
-                            <i class="fas fa-{% if site[2] == 200 %}bolt{% else %}ban{% endif %} fa-4x"></i>
+				<i class="fas fa-{% if site[2] == 200 %}bolt{% elif site[2] == 400 %}question{% else %}ban{% endif %} fa-4x"></i>
                         </span>
                     </div>
                     <footer class="card-footer">
