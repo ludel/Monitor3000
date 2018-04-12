@@ -20,7 +20,7 @@ def index():
 @app.route('/site/<int:id_site>')
 def one_site(id_site):
     all_request = sql_obj.get_request_where_id(id_site)
-    return render_template('admin/templates/one_site.html', all_request=all_request)
+    return render_template('one_site.html', all_request=all_request)
 
 
 @app.route('/login', methods=['GET', 'POST'])
