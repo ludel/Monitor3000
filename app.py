@@ -89,6 +89,7 @@ def edit_site(id_site):
 @app.route('/admin/site/<int:id_site>/delete')
 def delete_site(id_site):
     check_login()
+    flash('Site id: {} has been delete'.format(id_site))
     sql_obj.delete_site(id_site)
     return redirect(url_for("admin"))
 
