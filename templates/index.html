@@ -12,14 +12,29 @@
             <div class="columns">
         {% endif %}
         <div class="column is-4">
-            <div class="card">
-                <div class="card-content">
-                    <a href="{{ site[1] }}" class="title is-5 is-dark"> {{ site[1] }}</a><br><br>
-                    <a class="button is-fullwidth is-large is-{% if site[2] == 200 %}success{% else %}danger{% endif %}"
-                       href="{{ url_for("one_site", id_site=site[0]) }}">{{ site[2] }}</a>
+            <div class="card" style="background-color: {% if site[2] == 200 %}hsl(141, 71%, 48%){% else %}hsl(348, 100%, 50%){% endif %}">
+                <header class="card-header">
+                    <h1 class="card-header-title">
+                        <a class="has-text-white" href="{{ site[1] }}"> {{ site[1] }}</a>
+                    </h1><br>
+                </header>
+                    <div class="card-content has-text-centered">
+                        <h2 class="subtitle is-4 has-text-white">HTTP : {{ site[2] }}</h2><br>
+
+                        <span class="icon is-large">
+                            <i class="fas fa-{% if site[2] == 200 %}bolt{% else %}ban{% endif %} fa-4x"></i>
+                        </span>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                            <span>
+                                <a href="{{ url_for("one_site", id_site=site[0]) }}" class="has-text-white subtitle">
+                                    See more
+                                </a>
+                            </span>
+                    </footer>
                 </div>
             </div>
-        </div>
 
 
     {% endfor %}
