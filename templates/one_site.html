@@ -6,18 +6,26 @@
     <h1 class="title has-text-centered">Site: {{ all_request[0][0] }}</h1>
     <div class="columns is-centered">
         <div class="column is-one-quarter">
-            <ul class="is-danger">
+            <table class="table is-fullwidth">
+                <thead>
+                <tr>
+                    <th>HTTP status</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
                 {% for req in all_request %}
-                    <li>
-                        <p class="button is-rounded is-{% if req[1] == 200 %}success{% else %}danger{% endif %}">
-                            # {{ req[1] }}
-                        </p>
-                        <p class="button is-rounded is-info">
+                    <tr>
+                        <th class="has-text-{% if req[1] == 200 %}success{% else %}danger{% endif %}">
+                            {{ req[1] }}
+                        </th>
+                        <th class="has-text-info">
                             {{ req[2] }}
-                        </p>
-                    </li><br>
+                        </th>
+                    </tr>
                 {% endfor %}
-            </ul>
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
