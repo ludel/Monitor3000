@@ -20,7 +20,7 @@ def index():
 @app.route('/site/<int:id_site>')
 def one_site(id_site):
     all_request = sql_obj.get_request_where_id(id_site)
-    return render_template('admin/one_site.html', all_request=all_request)
+    return render_template('admin/templates/one_site.html', all_request=all_request)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -101,11 +101,11 @@ def check_login():
 
 def status():
     while True:
+        sleep(120)
         print("===============================")
         dict_response = get_response(sql_obj.get_all_data_site())
         for key, value in dict_response.items():
             sql_obj.new_response(value, key)
-        sleep(120)
 
 
 p = Process(target=status)
