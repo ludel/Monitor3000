@@ -13,5 +13,5 @@ def get_response(sites):
         except exceptions.SSLError:
             dict_response[site[0]] = 495
         except exceptions.ConnectionError:
-            dict_response[site[0]] = 504
+            dict_response[site[0]] = 999
     return dict_response
