@@ -44,7 +44,7 @@ class SQLRequest:
         return sites.fetchall()
 
     def get_request_where_id(self, id_site):
-        query = "SELECT s.url, r.number, r.date FROM site s" \
+        query = "SELECT s.url, r.number, datetime(r.date, 'localtime') FROM site s" \
                 " JOIN requests r ON s.id = r.siteId" \
                 " WHERE r.siteId = {} ORDER BY r.id DESC ".format(id_site)
         sites = self.exe_sql(query)
